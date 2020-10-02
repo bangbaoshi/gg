@@ -3,6 +3,7 @@ package gg
 
 import (
 	"errors"
+	"github.com/golang/freetype/truetype"
 	"image"
 	"image/color"
 	"image/jpeg"
@@ -77,6 +78,7 @@ type Context struct {
 	fontHeight    float64
 	matrix        Matrix
 	stack         []*Context
+	font          *truetype.Font
 }
 
 // NewContext creates a new image.RGBA with the specified width and height
@@ -694,8 +696,18 @@ func (dc *Context) SetFontFace(fontFace font.Face) {
 	dc.fontHeight = float64(fontFace.Metrics().Height) / 64
 }
 
+func (dc *Context) SetFontSize(size float64) {
+	face := truetype.NewFace(dc.font, &truetype.Options{
+		Size: size,
+		// Hinting: font.HintingFull,
+	})
+	dc.fontFace = face
+	dc.fontHeight = size
+}
+
 func (dc *Context) LoadFontFace(path string, points float64) error {
-	face, err := LoadFontFace(path, points)
+	face, font, err := LoadFontFace(path, points)
+	dc.font = font
 	if err == nil {
 		dc.fontFace = face
 		dc.fontHeight = points * 72 / 96
