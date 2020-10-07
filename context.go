@@ -3,7 +3,12 @@ package gg
 
 import (
 	"errors"
+	"github.com/golang/freetype/raster"
 	"github.com/golang/freetype/truetype"
+	"golang.org/x/image/draw"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/basicfont"
+	"golang.org/x/image/math/f64"
 	"image"
 	"image/color"
 	"image/jpeg"
@@ -11,12 +16,6 @@ import (
 	"io"
 	"math"
 	"strings"
-
-	"github.com/golang/freetype/raster"
-	"golang.org/x/image/draw"
-	"golang.org/x/image/font"
-	"golang.org/x/image/font/basicfont"
-	"golang.org/x/image/math/f64"
 )
 
 type LineCap int
