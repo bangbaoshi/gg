@@ -709,7 +709,7 @@ func (dc *Context) LoadFontFace(path string, points float64) error {
 	dc.font = font
 	if err == nil {
 		dc.fontFace = face
-		dc.fontHeight = points * 72 / 96
+		dc.fontHeight = points //* 72 / 96
 	}
 	return err
 }
